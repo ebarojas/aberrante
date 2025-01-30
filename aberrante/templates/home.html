@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aberrante</title>
+</head>
+<body>
+    <h1>Hola Aberrante!</h1>
+    <!-- Form for submitting a message -->
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}  <!-- Renders form fields -->
+        <button type="submit">Send</button>
+    </form>
+
+    <h2>Leads actuales</h2>
+    <ul>
+        {% for lead in leads %}
+            <li>{{ lead.email }} ({{ message.created_at }})</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

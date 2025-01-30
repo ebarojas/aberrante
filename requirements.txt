@@ -1,0 +1,16 @@
+# Django
+Django==4.2.16
+
+# heroku requirements
+dj-database-url==2.0.0
+gunicorn==23.0.0
+whitenoise==5.3.0
+
+# Database
+psycopg2-binary==2.9.6
+
+# Django allauth
+# This requirements need test for upgrade and compatibilities
+# django-allauth==0.50.0
+# python-openid==2.2.5
+# oauthlib==3.1.0
