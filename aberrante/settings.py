@@ -11,9 +11,15 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+import os
+# Parse database configuration from $DATABASE_URL
+import dj_database_url
+# To transform strings from environment variables to boolean values
+import ast
 
+# NOTE: Review or delete
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+# BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 # Quick-start development settings - unsuitable for production
@@ -22,11 +28,24 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-j8+bm-#3je@a$79(oc7+5*e#x8r9=k^u)2jabtcj@qmbza)2-1'
 
+
+# Set base dir
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = os.environ['SECRET_KEY']
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = ast.literal_eval(os.environ['DEBUG_STATE'])
+# Set allowed hosts, this is usually a list, if you need more hosts add
+# them manually also ignored when DEBUG = True
 
-ALLOWED_HOSTS = []
-
+# Check if we are in production
+PRODUCTION = ast.literal_eval(os.environ['PRODUCTION'])
+# Change allowed hosts accordingly
+if PRODUCTION:
+    ALLOWED_HOSTS = [os.environ['ALLOWED_HOSTS']]
+else:
+    ALLOWED_HOSTS = [
+        "127.0.0.1","localhost", "testserver", ]
 
 # Application definition
 
@@ -48,6 +67,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'aberrante.urls'
@@ -74,12 +94,19 @@ WSGI_APPLICATION = 'aberrante.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+DATABASE_URL = os.environ['DATABASE_URL']
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
+        'default': dj_database_url.config(default=DATABASE_URL, conn_health_checks=True)}
+
+
+# NOTE: Review or delete
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 
 
 # Password validation
@@ -117,6 +144,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
+
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")  # Heroku needs this
+STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]  # Your static assets
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
