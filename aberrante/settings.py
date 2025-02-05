@@ -47,6 +47,12 @@ else:
     ALLOWED_HOSTS = [
         "127.0.0.1","localhost", "testserver", ]
 
+# SSL Stuff
+SESSION_COOKIE_SECURE = ast.literal_eval(os.environ['SSL_STATE'])
+CSRF_COOKIE_SECURE = ast.literal_eval(os.environ['SSL_STATE'])
+SECURE_SSL_REDIRECT = ast.literal_eval(os.environ['SSL_STATE'])
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
 # Application definition
 
 INSTALLED_APPS = [
