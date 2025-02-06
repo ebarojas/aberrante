@@ -84,8 +84,12 @@ Local environment runs in vagrant. Execution as follows, once you install vagran
 ```python3 manage.py makemigrations```
 ```python3 manage.py migrate```
 
-### Deep-ploy
+## Deep-ploy
 
 There is a script to aid with migrations on deploy.
 
 ```bash ./bin/deploy_migrate.sh ```
+
+## Credits or other references
+- ASCII art generator: https://patorjk.com/software/taag/
+- Image to ASCII (80 chars): https://www.asciiart.eu/image-to-ascii
