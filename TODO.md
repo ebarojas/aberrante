@@ -3,6 +3,8 @@ Todo:
 - dbase structure
 - off white theme
 
+Srces:
+- https://patorjk.com/software/taag/#p=display&f=Ogre&t=aberrante
 
 from django.db import models
 from django.contrib.auth.models import AbstractUser
