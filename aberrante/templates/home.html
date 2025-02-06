@@ -4,21 +4,149 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aberrante</title>
+
+    <!-- Modal -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Déjanos tu correo</title>
+    <style>
+        /* Modal Background */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Modal Content Box */
+        .modal-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            width: 300px;
+            text-align: center;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Close Button */
+        .close {
+            color: red;
+            float: right;
+            font-size: 20px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+    </style>
+    <!-- /Modal -->
 </head>
+
 <body>
-    <h1>Hola Aberrante!</h1>
+
+    <pre>
+  __ _| |__   ___ _ __ _ __ __ _ _ __ | |_ ___ 
+ / _` | '_ \ / _ \ '__| '__/ _` | '_ \| __/ _ \
+| (_| | |_) |  __/ |  | | | (_| | | | | ||  __/
+ \__,_|_.__/ \___|_|  |_|  \__,_|_| |_|\__\___|
+                                               
+    </pre>
+    <h2>Material 2025</h2>
+    <span>
+        Somos parte de la feria Material. Puedes descargar nuestra carpeta de obra disponible aquí o puedes dejarnos tu correo y te buscaremos.
+    </span>
+
+    <br>
+
+
+    <a href="https://drive.google.com/file/d/1aftehYKrV_Cb2A4LdKEiGSep-26cbiVz/view" download target="_blank" class="download-btn">
+    📄 Carpeta de obra disponible
+    </a>
+
+    <h2>¿Qué es aberrante?</h2>
+    <span>
+        <p> La propuesta curatorial de Aberrante se centra en explorar las complejas interrelaciones entre identidad y territorio, destacando el trabajo de artistas con vínculos profundos con Michoacán, ya sea por origen o por sus procesos creativos. A través de obras realizadas por artistas de diversas generaciones, se abordan temas como la naturaleza, la crisis climática, el lenguaje y las representaciones culturales.</p>
+
+        
+        <p> El diálogo entre las piezas seleccionadas evidencia las múltiples maneras en que los artistas reflexionan sobre el entorno, las transformaciones sociales y culturales, y su forma de relacionarse con estos aspectos. La selección incluye a Anna Soler (Castellón de la Plana, España, 1972), cuyas exploraciones fotográficas se conectan con los paisajes de su país natal y de México, donde ha vivido por más de 20 años. Soler explora el paisaje como una construcción subjetiva de la mirada. Salvador Jacobo (Morelia, 1985) detona la construcción de un imaginario personal mediante una amalgama de objetos, símbolos y formas que sugieren cuerpos ambiguos y narrativas locales desde una perspectiva contemporánea. Circe Irasema (México, 1987) reelabora en esta serie obras arquitectónicas que se han convertido en monumentos de la modernidad mexicana. Salvador Xharicata (Cherán, 1996) aborda su relación con la lengua purépecha, creando una serie de grafismos con cenizas del fogón de su abuela, nombrando partes del cuerpo que lo vinculan con sus raíces. marco lópez valenzuela (Morelia, 1994) reflexiona sobre la violencia y el cambio climático en Michoacán, donde las alteraciones en la flora y fauna son cada vez más evidentes. José Luis Arroyo-Robles (Michoacán, 1995) examina la división territorial y los cambios en los terrenos que alteran el equilibrio de la flora y fauna locales. Finalmente, Xali Robles (Michoacán, 1990) presenta una serie de pinturas de reflejos y sombras sobre lo que alguna vez estuvo destinado a ser una moneda pero nunca se acuñó, como metáfora del valor de las cosas y lo visible e invisible.</p>
+        
+        <p> Aberrante busca posicionarse como un espacio de encuentro para reflexionar sobre las conexiones entre arte, territorio e identidad, articulando nuevas narrativas y fomentando una comunidad que dialogue y colabore, apoyando el surgimiento de una nueva generación de artistas contemporáneos.</p>
+    </span>
+
+    <!-- Trigger Button for debugging -->
+    <!-- <button id="openModalBtn">Open Modal</button> -->
+
+    <h2>No pierdas contacto</h2>
+    Déjanos tu correo y te escribiremos para darte más información.
     <!-- Form for submitting a message -->
     <form method="POST">
         {% csrf_token %}
         {{ form.as_p }}  <!-- Renders form fields -->
-        <button type="submit">Send</button>
+        <button type="submit">Enviar</button>
     </form>
 
-    <h2>Leads actuales</h2>
-    <ul>
-        {% for lead in leads %}
-            <li>{{ lead.email }} ({{ message.created_at }})</li>
-        {% endfor %}
-    </ul>
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Tienes que saber más de aberrante</h2>
+            <!-- Form for submitting a message -->
+            <form id="modalForm" method="POST">
+                {% csrf_token %}
+                {{ form.as_p }}  <!-- Renders form fields -->
+                <button type="submit">Enviar</button>
+            </form>
+            <!-- Temp debug aid -->
+            <!-- h2>Leads actuales</h2>
+            <ul>
+                {% for lead in leads %}
+                    <li>{{ lead.email }} ({{ message.created_at }})</li>
+                {% endfor %}
+            </ul> -->
+        </div>
+    </div>
+
+    <script>
+        // Get modal elements
+        const modal = document.getElementById("myModal");
+        // const openModalBtn = document.getElementById("openModalBtn");
+        const closeModalBtn = document.querySelector(".close");
+        const form = document.getElementById("modalForm");
+
+        // Open modal when button is clicked
+        // openModalBtn.addEventListener("click", () => {
+        //     modal.style.display = "flex";
+        // });
+
+        // Ensure modal is displayed when page loads
+        window.onload = () => {
+            if (!localStorage.getItem("modalSubmitted")) {
+                modal.style.display = "flex"; // Show modal on first visit
+            }
+        };
+
+        // Close modal when clicking the 'X' button
+        closeModalBtn.addEventListener("click", () => {
+            modal.style.display = "none";
+        });
+
+        // Close modal on form submit and prevent it from reopening after reload
+        form.addEventListener("submit", (event) => {
+            localStorage.setItem("modalSubmitted", "true"); // Set flag in localStorage
+            modal.style.display = "none"; // Hide modal after submission
+        });
+
+        // Close modal when clicking outside of modal content
+        window.addEventListener("click", (event) => {
+            if (event.target === modal) {
+                modal.style.display = "none";
+            }
+        });
+    </script>
+
 </body>
 </html>

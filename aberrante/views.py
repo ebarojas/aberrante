@@ -2,6 +2,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from .models import Lead
 from .forms import SimpleForm
+from django.conf import settings
 
 def home(request):
 
@@ -16,4 +17,4 @@ def home(request):
 
 	leads = Lead.objects.all()
 
-	return render(request, 'home.html', {'form': form, 'leads': leads})
+	return render(request, 'home.html', {'form': form, 'leads': leads, "MEDIA_URL": settings.MEDIA_URL})
