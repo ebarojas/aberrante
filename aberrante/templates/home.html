@@ -271,8 +271,8 @@
     <!-- Form for submitting a message -->
     <form method="POST">
         {% csrf_token %}
-        {{ form.as_p }}  <!-- Renders form fields -->
-        <button type="submit">Enviar</button>
+        {{ simple_form.as_p }}  <!-- Renders form fields -->
+        <button type="submit" name="simple_form">Enviar</button>
     </form>
 
     <footer>
@@ -287,8 +287,8 @@
             <!-- Form for submitting a message -->
             <form id="modalForm" method="POST">
                 {% csrf_token %}
-                {{ form.as_p }}  <!-- Renders form fields -->
-                <button type="submit">Enviar</button>
+                {{ lead_form.as_p }}  <!-- Renders form fields -->
+                <button type="submit" name="lead_form">Enviar</button>
             </form>
         </div>
     </div>
