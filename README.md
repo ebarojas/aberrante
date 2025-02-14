@@ -26,6 +26,7 @@ Current js frameworks are slow to work on and slow to load, but html is quick an
 - https://motherfuckingwebsite.com
 - https://www.wikipedia.org
 - https://www.craigslist.org
+- https://mailarchive.ietf.org/arch/msg/njm/q53j3V-fK1tOCNMsnaS1dat482A/
 
 ## Specs
 - Django monolith with postgresql
